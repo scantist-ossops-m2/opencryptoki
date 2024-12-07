@@ -4378,12 +4378,6 @@ CK_RV token_specific_ec_sign(STDLL_TokData_t *tokdata,  SESSION *sess,
 
     *out_data_len = 2 * privlen;
 
-    if (!EC_KEY_check_key(ec_key)) {
-        TRACE_ERROR("EC_KEY_check_key failed\n");
-        rc = CKR_PUBLIC_KEY_INVALID;
-        goto out;
-    }
-
 out:
     if (sig != NULL)
         ECDSA_SIG_free(sig);
@@ -4452,12 +4446,6 @@ CK_RV token_specific_ec_verify(STDLL_TokData_t *tokdata,
     default:
         rc = CKR_FUNCTION_FAILED;
         break;
-    }
-
-    if (!EC_KEY_check_key(ec_key)) {
-        TRACE_ERROR("EC_KEY_check_key failed\n");
-        rc = CKR_FUNCTION_FAILED;
-        goto out;
     }
 
 out:
